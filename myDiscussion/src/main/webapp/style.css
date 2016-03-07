@@ -1,0 +1,38 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 6, 2016, 10:29:44 AM
+    Author     : Paul Merideth
+*/
+
+.addPost
+{
+    width: 100px;
+    float: left;
+}
+
+td, th
+{
+    padding: 10px;
+}
+
+td
+{
+    padding: 10px 5px 3px 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+table
+{
+    text-align: center;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+.myBlueTest
+{
+    color: blue;
+}

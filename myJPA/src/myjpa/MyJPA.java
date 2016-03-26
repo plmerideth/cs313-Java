@@ -69,6 +69,8 @@ public class MyJPA {
         bookQuery = em.createQuery("SELECT b FROM Book b");
         books = bookQuery.getResultList();
         
+        //This is a test
+        
         for (Book showBook : books )
         {
             System.out.println("Book: " + showBook.getTitle() + ", Author: " + showBook.getAuthor().getName());

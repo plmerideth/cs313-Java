@@ -5,14 +5,18 @@
  */
 package credentials;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -20,8 +24,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import myWeather.MyWeatherData;
 import mysql.DbConnect;
 import org.jasypt.util.password.BasicPasswordEncryptor;
+
 
 /**
  *
@@ -84,11 +91,12 @@ public class MyCredentials extends HttpServlet {
             throws ServletException, IOException
     {
         Boolean completeForm = true;
+        HttpSession session = null;
         
         //Process login
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        
+               
         if(username.isEmpty() || password.isEmpty())
         {
             request.getRequestDispatcher("incompleteLogin.jsp").forward(request, response);
@@ -109,37 +117,33 @@ public class MyCredentials extends HttpServlet {
                     System.exit(1);
                 }
 
+                String host = null;
+                host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
+                
                 // Select all the records and display them.
                 String sql = "SELECT acct_id, first_name, last_name, email, username, password, datetime FROM myweatheraccount WHERE username = ?";
-
-                //Code for Local
-                //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/cs313", "admin", "loga2872");
-                //End code for Local
+                Connection connection;
                 
-                //Code for OpenShift
-                String host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");        
-                String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
-                String OpenShiftUsername = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
-                String OpenShiftPassword = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
+                if(host == null)
+                {
+                    //Code for Local
+                    connection = DriverManager.getConnection("jdbc:mysql://localhost/cs313", "admin", "loga2872");
+                    //End code for Local
+                }
+                else
+                {                    
+                    //Code for OpenShift                
+                    String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
+                    String OpenShiftUsername = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
+                    String OpenShiftPassword = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
 
-                Connection connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/cs313", OpenShiftUsername, OpenShiftPassword);                                                
-                //End code for OpenShift
+                    connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/cs313", OpenShiftUsername, OpenShiftPassword);                                                
+                    //End code for OpenShift
+                }
                 
                 PreparedStatement pstmt = connection.prepareStatement(sql);
 
                 BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
-                //String encryptedPassword = passwordEncryptor.encryptPassword(password);
-
-                /*
-                if (passwordEncryptor.checkPassword(password, encryptedPassword)) {
-                    System.out.println("Password is good");    
-                    // correct!
-                } else {
-                    System.out.println("Password failed");
-                    // bad login!
-                }                                                               
-                */
-                
                 pstmt.setString(1, username);
 
                 //STEP 5: Extract data from result set
@@ -157,32 +161,29 @@ public class MyCredentials extends HttpServlet {
                         if (passwordEncryptor.checkPassword(password, encryptedPassword))
                         {
                             results = true;
+                            //Set session
+                            String firstName = rs.getString("first_name");
+                            session = request.getSession(true);
+                            session.setAttribute("first_name", firstName);
                         }    
-                        //Retrieve by column name
-                        /*
-                        int param = rs.getInt("acct_id");
-                        String first = rs.getString("first_name");
-                        String last = rs.getString("last_name");
-                        String fullName = first + " " + last;
 
-                        //Display values
-                        out.println("<p>Name: " + fullName + "</p>");
-                        out.println("<p>UserName: " + rs.getString("username") + "</p>");
-                        out.println("<p>Email: " + rs.getString("email") + "</p>");
-                        out.println("<p>Password: " + rs.getString("password") + "</p>");
-                        out.println("<p>DateTime: " + rs.getDate("datetime") + "</p>");
-                        out.println("</br></br>");
-                        */                        
-
-                        if (!results) {
+                        if (!results) //password doesn't match
+                        {
                             request.getRequestDispatcher("invalidLogin.jsp").forward(request, response);
-                        }                        
-                                                
-                        //Successful login - do something here.                                                
-                        request.getRequestDispatcher("successfulLogin.jsp").forward(request, response);
-                        
+                            results = true;  //Set to true so dispatcher isn't called second time when exiting while()
+                        }
+                        else
+                        {
+                            request.getRequestDispatcher("getCity.jsp").forward(request, response);                                                              
+                            //URL url = new URL("http://api.wunderground.com/api/43ac7584a41c5184/conditions/q/CA/San_Francisco.json");                            
+                        }                                                                       
                     }
-                } catch (SQLException e) {
+                    
+                    if(!results) //No match found in table
+                        request.getRequestDispatcher("invalidLogin.jsp").forward(request, response);
+                    
+                } catch (SQLException e)
+                {
                     System.out.println("executeQuery failed");
                 }
                 pstmt.close();

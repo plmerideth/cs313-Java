@@ -9,14 +9,6 @@ and open the template in the editor.
 */
 @import url(http://fonts.googleapis.com/css?family=Rock+Salt);
 
-.myCitySet
-{
-	font-size: 30px;
-	margin-bottom: 30px;
-	margin-left: 25px;
-	width: 700px;
-}
-
 #myContent
 {
     margin: auto;
@@ -24,43 +16,6 @@ and open the template in the editor.
     width: 600px;
     font-size: 30px;
 }
-
-#cityTitle
-{    
-    margin-top: 10px;
-    margin-bottom: 5px;
-    text-align: center;
-    font-size: 30px;    
-}
-
-#myWeather-1
-{
-    background-color: white;
-    float:left;
-    margin-left: 30px;
-    margin-top: 5px;
-    margin-bottom: 20px;
-    width: 600px;
-    font-size: 20px;
-    border: 2px solid black;
-    border-radius: 5px;
-    padding: 20px;
-}
-
-#myWeather-2
-{
-    background-color: white;
-    float: left;
-    margin-left: 20px;
-    margin-top: 5px;
-    margin-bottom: 20px;
-    width: 600px;
-    font-size: 20px;
-    border: 2px solid black;
-    border-radius: 5px;
-    padding: 20px;
-}
-
 .registerInstructions
 {
     margin-left: 25px;
@@ -116,60 +71,6 @@ and open the template in the editor.
     text-decoration: none;
     background-color: white;
 }
-
-.submitWeather
-{
-    color: white;
-    float: left;
-    font-size: 20px;
-    border: 2px solid black;
-    border-radius: 5px;
-    margin-top: 20px;
-    margin-left: 0;
-    text-decoration: none;
-    padding: 5px;
-    background-color: maroon;
-    font-family: 'Playfair Display';
-}
-.submitWeather:hover
-{
-    /*Make border same color as background to appear to disappear without changing button dimensions*/
-    border:2px solid #000000;
-    border-radius: 5px;
-    /*box-shadow creates glow with hover*/
-    box-shadow: 0 0 30px black;
-    color: #000000;
-    text-decoration: none;
-    background-color: white;
-}
-
-.homeWeather
-{
-    color: white;
-    float: right;
-    font-size: 20px;
-    border: 2px solid black;
-    border-radius: 5px;
-    margin-top: 20px;
-    margin-left: 0;
-    text-decoration: none;
-    padding: 5px;
-    background-color: maroon;
-    font-family: 'Playfair Display';
-}
-.homeWeather:hover
-{
-    /*Make border same color as background to appear to disappear without changing button dimensions*/
-    border:2px solid #000000;
-    border-radius: 5px;
-    /*box-shadow creates glow with hover*/
-    box-shadow: 0 0 30px black;
-    color: #000000;
-    text-decoration: none;
-    background-color: white;
-}
-
-
 .submitRegistration
 {
     color: black;
@@ -281,7 +182,7 @@ html
 #myHeader
 {
 	font-family: 'Rock Salt', cursive;
-	font-size: 20px;
+	font-size: 25px;
 	border-bottom: 5px solid black;
 	background-color: white;
 }
@@ -646,3 +547,7 @@ a:hover
 	background-color: transparent;
 	text-decoration: underline;
 }
+a:visited
+{
+	color: black;
+};

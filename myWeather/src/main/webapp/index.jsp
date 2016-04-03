@@ -12,7 +12,7 @@
         <link href="myWeatherStyle.css" rel="stylesheet" type="text/css" media="screen"/>                
         <title>JSP Page</title>
     </head>
-    <body>
+    <body>        
         <div class="container">
             <div id="myHeader">
                 <h1 id="myLogo">myWeather</h1>

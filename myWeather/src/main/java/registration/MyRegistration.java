@@ -113,26 +113,30 @@ public class MyRegistration extends HttpServlet {
             }
 
             String sql = "SELECT username, password FROM myweatheraccount WHERE password = ? AND username = ?";
+            Connection connection;
 
             String encryptedPassword = passwordEncryptor.encryptPassword(password);            
             
+            String host = null;
+            host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");                    
+            
             try
             {
-                
-                //Code for Local
-                //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/cs313","admin", "loga2872");
-                //End code for Local
-                
-                //Code for OpenShift
-                String host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");        
-                String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
-                String OpenShiftUsername = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
-                String OpenShiftPassword = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
+                if(host == null)
+                {
+                    //Code for Local
+                    connection = DriverManager.getConnection("jdbc:mysql://localhost/cs313","admin", "loga2872");                    
+                }
+                else
+                {
+                    //Code for OpenShift
+                    String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
+                    String OpenShiftUsername = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
+                    String OpenShiftPassword = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
 
-                Connection connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/cs313", OpenShiftUsername, OpenShiftPassword);                                                
-                //End code for OpenShift
-                                      
-                
+                    connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/cs313", OpenShiftUsername, OpenShiftPassword);
+                }
+                                                      
                 PreparedStatement pstmt = connection.prepareStatement(sql);
                 pstmt.setString(1, encryptedPassword);
                 pstmt.setString(2, username);
@@ -171,22 +175,24 @@ public class MyRegistration extends HttpServlet {
 
                 sql = "INSERT INTO myweatheraccount (first_name, last_name, email, username, password, datetime) VALUES(?,?,?,?,?,?)";
 
+                
                 try
                 {
-                    
-                    //Code for Local
-                    //Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/cs313", "admin", "loga2872");
-                    //End code for Local
-                    
-                    //Code for OpenShift
-                    String host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");        
-                    String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
-                    String OpenShiftUsername = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
-                    String OpenShiftPassword = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
+                    if(host == null)
+                    {
+                        //Code for Local
+                        connection = DriverManager.getConnection("jdbc:mysql://localhost/cs313", "admin", "loga2872");
+                    }
+                    else
+                    {
+                        //Code for OpenShift                        
+                        String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
+                        String OpenShiftUsername = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
+                        String OpenShiftPassword = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
 
-                    Connection connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/cs313", OpenShiftUsername, OpenShiftPassword);                                                
-                    //End code for OpenShift
-                                                                                                  
+                        connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/cs313", OpenShiftUsername, OpenShiftPassword);
+                    }
+                                                                                              
                     PreparedStatement pstmt = connection.prepareStatement(sql);
 
                     pstmt.setString(1, firstname);

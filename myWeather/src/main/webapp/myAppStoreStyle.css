@@ -9,6 +9,17 @@ and open the template in the editor.
 */
 @import url(http://fonts.googleapis.com/css?family=Rock+Salt);
 
+.FeatureListLeft
+{
+    float: left;
+    width: 500px;
+}
+.FeatureListRight
+{
+    float: left;
+}
+
+
 .myCitySet
 {
 	font-size: 30px;
@@ -21,8 +32,12 @@ and open the template in the editor.
 {
     margin: auto;
     margin-top: 30px;
-    width: 600px;
+    width: 1000px;
     font-size: 30px;
+}
+.contentTitle
+{
+    font-size: 60px;    
 }
 
 #cityTitle
@@ -106,6 +121,32 @@ and open the template in the editor.
     font-family: 'Playfair Display';
 }
 .submitLogin:hover
+{
+    /*Make border same color as background to appear to disappear without changing button dimensions*/
+    border:2px solid #000000;
+    border-radius: 5px;
+    /*box-shadow creates glow with hover*/
+    box-shadow: 0 0 30px black;
+    color: #000000;
+    text-decoration: none;
+    background-color: white;
+}
+
+.gotoWeather
+{
+    color: black;
+    float: right;
+    font-size: 20px;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-right: 500px;    
+    text-decoration: none;
+    padding: 5px;
+    background-color: #ffffff;
+    font-family: 'Playfair Display';
+}
+.gotoWeather:hover
 {
     /*Make border same color as background to appear to disappear without changing button dimensions*/
     border:2px solid #000000;
@@ -285,11 +326,26 @@ html
 	border-bottom: 5px solid black;
 	background-color: white;
 }
-#myLogo
-{
-	margin: 0px;
-	margin-left: 50px;
+.myLogo
+{    
+    margin: 0px;
+    margin-left: 50px;    
 }
+.mySubLogo
+{
+    margin: 0px;
+    margin-left: 50px;
+}
+.subTitle
+{
+    color: white;
+    font-weight: bold;
+}
+.Features
+{
+    list-style-type: circle;
+}
+
 body
 {
 	margin: 0;
@@ -342,8 +398,6 @@ body
     text-decoration: none;
     background-color: white;
 }
-
-
 
 .submitLoginSpec
 {

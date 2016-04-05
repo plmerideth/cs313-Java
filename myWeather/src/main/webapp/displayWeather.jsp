@@ -16,8 +16,9 @@
     <body>
         <div class="container">
             <div id="myHeader">
-                <h1 id="myLogo">myWeather</h1>
-                <p id="myLogo">Weather Page</p>
+                <h1 class="myLogo">myWeather</h1>
+                <img class="imgSun" src="Sun-6.jpg"/>
+                <p class="mySubLogo">Weather Page</p>
             </div>
             <%
                 MyWeatherData WeatherData = new MyWeatherData();
@@ -47,5 +48,6 @@
                 <a href=<%= WeatherData.current_observation.history_url%> class="homeWeather" title="Forecast">Weather History</a>
             </div>
             <br/><br/>
+            <div class="myClear"></div>
         </div>
 </html>

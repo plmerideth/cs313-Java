@@ -21,7 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author Paul Merideth
  */
 @WebServlet(urlPatterns = {"/mysqlConfig"})
-public class mysqlConfig extends HttpServlet {
+public class mysqlConfig extends HttpServlet
+{
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -103,63 +104,108 @@ public class mysqlConfig extends HttpServlet {
             System.exit(1);
         }
 
-        /* Code for OpenShift Connection.  Currently broken.
-        String host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
-        String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
-        String username = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
-        String password = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
-        */
+        String host = null;
+        host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
         
-	try
-        (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/cs313","admin", "loga2872"))
-//          (Connection connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/cs313", username, password))  
-        {                
-            PreparedStatement pstmt;
-            String sql;
-
-            // Select all the records and display them.
-            sql = "SELECT person_id, first_name, last_name, birthday FROM persons";
-            
-            pstmt = connection.prepareStatement(sql);
-            
-            //STEP 5: Extract data from result set
-            try (ResultSet rs = pstmt.executeQuery(sql))
-            {
-                //Extract data from result set
-                response.setContentType("text/html;charset=UTF-8");
-                PrintWriter out = response.getWriter();
-                
-                while (rs.next())
-                {
-                    //Retrieve by column name
-                    byte param = rs.getByte("person_id");
-                    String first = rs.getString("first_name");
-                    String last = rs.getString("last_name");
-                    Date birthday = rs.getDate("birthday");
-                    
-                    String fullName = first + " " + last;                    
-                    
-                    //Display values
-                    out.println("Name: " + "<a href=readNames?p=" + param + ">" + fullName + "</a>" );                   
-                    out.println("<p>Birthday: " + birthday + "</p>");
-                    out.println("</br></br>");
-                }
-                //STEP 6: Clean-up environment
-            }
-            pstmt.close();
-        }catch(SQLException se)
+        if(host != null)
         {
-            //Handle errors for JDBC            
+            String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
+            String username = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
+            String password = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
+            
+            try            
+            (Connection connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/cs313", username, password))  
+            {                
+                PreparedStatement pstmt;
+                String sql;
+
+                // Select all the records and display them.
+                sql = "SELECT person_id, first_name, last_name, birthday FROM persons";
+
+                pstmt = connection.prepareStatement(sql);
+
+                //STEP 5: Extract data from result set
+                try (ResultSet rs = pstmt.executeQuery(sql))
+                {
+                    //Extract data from result set
+                    response.setContentType("text/html;charset=UTF-8");
+                    PrintWriter out = response.getWriter();
+
+                    while (rs.next())
+                    {
+                        //Retrieve by column name
+                        byte param = rs.getByte("person_id");
+                        String first = rs.getString("first_name");
+                        String last = rs.getString("last_name");
+                        Date birthday = rs.getDate("birthday");
+
+                        String fullName = first + " " + last;                    
+
+                        //Display values
+                        out.println("Name: " + "<a href=readNames?p=" + param + ">" + fullName + "</a>" );                   
+                        out.println("<p>Birthday: " + birthday + "</p>");
+                        out.println("</br></br>");
+                    }
+                    
+                    pstmt.close();
+                    
+                }
+            }catch(SQLException e)
+            {
+                //Handle errors for JDBC            
+            }
+        }
+        else
+        {
+            try
+            (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/cs313","admin", "loga2872"))
+            {                
+                PreparedStatement pstmt;
+                String sql;
+
+                // Select all the records and display them.
+                sql = "SELECT person_id, first_name, last_name, birthday FROM persons";
+
+                pstmt = connection.prepareStatement(sql);
+
+                //STEP 5: Extract data from result set
+                try (ResultSet rs = pstmt.executeQuery(sql))
+                {
+                    //Extract data from result set
+                    response.setContentType("text/html;charset=UTF-8");
+                    PrintWriter out = response.getWriter();
+
+                    while (rs.next())
+                    {
+                        //Retrieve by column name
+                        byte param = rs.getByte("person_id");
+                        String first = rs.getString("first_name");
+                        String last = rs.getString("last_name");
+                        Date birthday = rs.getDate("birthday");
+
+                        String fullName = first + " " + last;                    
+
+                        //Display values
+                        out.println("Name: " + "<a href=readNames?p=" + param + ">" + fullName + "</a>" );                   
+                        out.println("<p>Birthday: " + birthday + "</p>");
+                        out.println("</br></br>");
+                    }                    
+                }
+            }catch(SQLException se)
+            {
+               //Handle errors for JDBC            
+            }                            
         }
     }
-
+    
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+    public String getServletInfo()
+    {
         return "Short description";
     }// </editor-fold>
 

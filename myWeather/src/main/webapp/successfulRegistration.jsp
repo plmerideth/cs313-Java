@@ -15,15 +15,18 @@
     <body>
         <div class="container">
             <div id="myHeader">
-                <h1 id="myLogo">myWeather</h1>
-                <p id="myLogo">Registration</p>
+                <h1 class="myLogo">myWeather</h1>
+                <img class="imgSun" src="Sun-6.jpg"/>
+                <p class="mySubLogo">Registration Page</p>
             </div>
             <div id="myContent">
                 <h1>Successful Registration!</h1>
                 <h3>Please log in.</h3>
                 <a href="login.jsp" class="submitLogin" title="Login">Login</a>
                 <a href="index.jsp" class="homePage" title="Home">Home Page</a>
-            </div>                                 
+                <br/><br/>
+            </div>
+            <div class="myClear"></div>
         </div>
     </body>
 </html>

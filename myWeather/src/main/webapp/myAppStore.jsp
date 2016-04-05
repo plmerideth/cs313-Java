@@ -15,9 +15,11 @@
     <body>
         <div class="container">
             <div id="myHeader">                
-                <h1 class="myLogo">myWeather</h1>                
-                <p class="mySubLogo">Register to have your own personal weatherman!</p>                                
-            </div>            
+                <h1 class="myLogo">myWeather</h1>
+                <img class="imgSun" src="Sun-6.jpg"/>
+                <p class="mySubLogo">Register to have your own personal weatherman!</p>                
+            </div>
+            
             <div id="myContent">
                 <span class="contentTitle">myWeather</span>
                 <a href="index.jsp" class="gotoWeather" title="Go to myWeather">Go To MyWeather</a>

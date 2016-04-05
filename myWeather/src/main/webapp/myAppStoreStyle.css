@@ -316,29 +316,53 @@ html
 {
 	overflow-y: scroll;  /*Force vertical scroll bar to avoid screen shift */
 	/* background-image: url(../imgs/background_003.jpg); */
-	/* background-repeat: no-repeat; */
-	background: linear-gradient(-90deg, Linen, Maroon);
+	background-repeat: no-repeat;
+        /* background-color: DarkGrey; */
+        background-image: url("clouds.jpg");
+        background-position: center center;
 }
+.container
+{
+    margin: auto;
+    margin-top: 30px;
+    border: 5px solid black;	
+    width: 1200px;
+    background: linear-gradient(-90deg, #ffcc33, #ffff99);
+    /* background-color: DarkGrey; */
+    border-radius: 15px;
+}
+
 #myHeader
 {
 	font-family: 'Rock Salt', cursive;
 	font-size: 20px;
 	border-bottom: 5px solid black;
 	background-color: white;
+        border-radius: 15px;
 }
 .myLogo
 {    
     margin: 0px;
-    margin-left: 50px;    
+    margin-left: 50px;
+    float: left;
 }
 .mySubLogo
 {
     margin: 0px;
     margin-left: 50px;
+    clear: left;
+}
+
+.imgSun
+{
+    float: right;
+    width: 110px;
+    height: 110px;
+    padding: 20px;
 }
 .subTitle
 {
-    color: white;
+    color: red;
     font-weight: bold;
 }
 .Features
@@ -348,17 +372,9 @@ html
 
 body
 {
-	margin: 0;
+	margin: 0;        
 }
-.container
-{
-	/* margin: auto;*/
-	/*border: 5px solid black;*/
-	/* width: 1000px; */
-	/* width: 1200px; */
-	/* background-color: DarkGrey; */
-	/*border-radius: 15px; */
-}
+
 #menu
 {
 	margin: auto;

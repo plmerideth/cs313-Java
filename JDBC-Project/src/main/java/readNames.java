@@ -70,49 +70,112 @@ public class readNames extends HttpServlet {
         String param = request.getParameter("p");
         int p = Integer.parseInt(param);
         
-	try
-        (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/cs313","admin", "loga2872"))
-        {
-                
-            PreparedStatement pstmt;
-            String sql;
+        /* Code for OpenShift Connection.  Currently broken.
+        String host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
+        String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
+        String username = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
+        String password = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
+        */        
 
-            // Select all the records and display them.
-            sql = "SELECT person_id, first_name, last_name, birthday FROM persons WHERE person_id=?";            
-            
-            pstmt = connection.prepareStatement(sql);
-            //pstmt.setInt(1, 2);
-            pstmt.setInt(1, p);
-            
-            //STEP 5: Extract data from result set
-            try (ResultSet rs = pstmt.executeQuery())
-            {
-                //Extract data from result set
-                
-                while (rs.next())
-                {
-                    //Retrieve by column name
-                    byte person_id = rs.getByte("person_id");
-                    String first = rs.getString("first_name");
-                    String last = rs.getString("last_name");
-                    Date birthday = rs.getDate("birthday");
-                    
-                    String fullName = first + " " + last;                    
-                    
-                    //Display values
-                    out.println("Name: " + fullName + "</a>" );                   
-                    out.println("<p>Birthday: " + birthday + "</p>");
-                    out.println("</br></br>");
-                }
-                //STEP 6: Clean-up environment
-            }
-            pstmt.close();
-        }catch(SQLException se)
+        String host = null;
+        host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
+        
+        if(host != null)
         {
-            //Handle errors for JDBC            
+            String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
+            String username = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
+            String password = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
+            
+            try            
+            (Connection connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/cs313", username, password))  
+            {                
+                
+                PreparedStatement pstmt;
+                String sql;
+
+                // Select all the records and display them.
+                sql = "SELECT person_id, first_name, last_name, birthday FROM persons WHERE person_id=?";            
+
+                pstmt = connection.prepareStatement(sql);
+                //pstmt.setInt(1, 2);
+                pstmt.setInt(1, p);
+
+                //STEP 5: Extract data from result set
+                try (ResultSet rs = pstmt.executeQuery())
+                {
+                    //Extract data from result set
+
+                    while (rs.next())
+                    {
+                        //Retrieve by column name
+                        byte person_id = rs.getByte("person_id");
+                        String first = rs.getString("first_name");
+                        String last = rs.getString("last_name");
+                        Date birthday = rs.getDate("birthday");
+
+                        String fullName = first + " " + last;                    
+
+                        //Display values
+                        out.println("Name: " + fullName + "</a>" );                   
+                        out.println("<p>Birthday: " + birthday + "</p>");
+                        out.println("</br></br>");
+                    }                    
+                }
+                
+                //STEP 6: Clean-up environment
+                pstmt.close();
+            }catch(SQLException se)
+            {
+                //Handle errors for JDBC            
+            }
+        }
+        else
+        {                
+            try
+            (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/cs313","admin", "loga2872"))
+            {
+
+                PreparedStatement pstmt;
+                String sql;
+
+                // Select all the records and display them.
+                sql = "SELECT person_id, first_name, last_name, birthday FROM persons WHERE person_id=?";            
+
+                pstmt = connection.prepareStatement(sql);
+                //pstmt.setInt(1, 2);
+                pstmt.setInt(1, p);
+
+                //STEP 5: Extract data from result set
+                try (ResultSet rs = pstmt.executeQuery())
+                {
+                    //Extract data from result set
+
+                    while (rs.next())
+                    {
+                        //Retrieve by column name
+                        byte person_id = rs.getByte("person_id");
+                        String first = rs.getString("first_name");
+                        String last = rs.getString("last_name");
+                        Date birthday = rs.getDate("birthday");
+
+                        String fullName = first + " " + last;                    
+
+                        //Display values
+                        out.println("Name: " + fullName + "</a>" );                   
+                        out.println("<p>Birthday: " + birthday + "</p>");
+                        out.println("</br></br>");
+                    }                    
+                }
+                
+                //STEP 6: Clean-up environment
+                pstmt.close();
+            }catch(SQLException se)
+            {
+                //Handle errors for JDBC            
+            }
         }
     }
-
+    
     /**
      * Handles the HTTP <code>POST</code> method.
      *

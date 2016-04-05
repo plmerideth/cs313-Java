@@ -15,8 +15,9 @@
     <body>
         <div class="container">
             <div id="myHeader">
-                <h1 id="myLogo">myWeather</h1>
-                <p id="myLogo">Registration Page</p>
+                <h1 class="myLogo">myWeather</h1>
+                <img class="imgSun" src="Sun-6.jpg"/>
+                <p class="mySubLogo">Registration Page</p>
             </div>
             <div id="myContent">
                 <p class="registerInstructions">Please complete the following registration form.  Click "Register" when done.</p>                
@@ -39,9 +40,11 @@
                         <br/><br/>
                         <input type="submit" class="submitRegistration" name="registration" value="Register"/>
                         <a href="index.jsp" class="homePage" title="Home">Home Page</a>
+                        <br/><br/>
                     </fieldset>
                 </form>                                                                             
-            </div>                                 
+            </div>
+            <div class="myClear"></div>
         </div>
     </body>
 </html>

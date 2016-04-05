@@ -15,8 +15,9 @@
     <body>
         <div class="container">
             <div id="myHeader">
-                <h1 id="myLogo">myWeather</h1>
-                <p id="myLogo">Enter Location</p>
+                <h1 class="myLogo">myWeather</h1>
+                <img class="imgSun" src="Sun-6.jpg"/>
+                <p class="mySubLogo">Location Page</p>                               
             </div>
             <div id="myContent">                
                 <h1>Welcome ${first_name}</h1>                
@@ -30,6 +31,7 @@
                         <a href="index.jsp" class="homePage" title="Home">Home Page</a>
                     </fieldset>
                 </form>                                                                                                             
-            </div>                                 
+            </div>
+            <div class="myClear"></div>
         </div>
 </html>

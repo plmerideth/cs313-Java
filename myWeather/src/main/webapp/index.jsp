@@ -15,8 +15,9 @@
     <body>        
         <div class="container">
             <div id="myHeader">
-                <h1 id="myLogo">myWeather</h1>
-                <p id="myLogo">Home Page</p>
+                <h1 class="myLogo">myWeather</h1>
+                <img class="imgSun" src="Sun-6.jpg"/>
+                <p class="mySubLogo">Home Page</p>
             </div>
             <div id="myContent">
                 <fieldset class="myFieldSet"><legend>Please Login or Register New Account</legend>
@@ -28,7 +29,8 @@
                           <input class="registerLogin" name="register" type="submit" value="Register" />
                     </form>                
                 </fieldset>
-            </div>                                 
+            </div>
+            <div class="myClear"></div>
         </div>
     </body>
 </html>

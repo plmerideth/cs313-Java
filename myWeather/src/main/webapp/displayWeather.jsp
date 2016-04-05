@@ -31,6 +31,7 @@
             </div>
             <div id="myWeather-1">                                
                 <p>Local Date & Time = <%= WeatherData.current_observation.local_time_rfc822%></p>
+                <p>Measured At = <%= WeatherData.current_observation.observation_location.full%></p>
                 <p>Longitude = <%= WeatherData.current_observation.display_location.longitude%></p>
                 <p>Latitude = <%= WeatherData.current_observation.display_location.latitude%></p>
                 <p>Temp = <%= WeatherData.current_observation.temperature_string%></p>
@@ -41,6 +42,7 @@
             <div id="myWeather-2">
                 <p>Wind Chill = <%= WeatherData.current_observation.windchill_f%></p>
                 <p>Humidity = <%= WeatherData.current_observation.relative_humidity%></p>
+                <p>Heat Index = <%= WeatherData.current_observation.heat_index_string%></p>
                 <p>Precipitation Today = <%= WeatherData.current_observation.precip_today_string%></p>
                 <p>Visibility (mi) = <%= WeatherData.current_observation.visibility_mi%></p>
                 <p>Feels Like = <%= WeatherData.current_observation.feelslike_string%></p>

@@ -16,9 +16,10 @@
     <body>
         <div class="container">
             <div id="myHeader">
-                <h1 class="myLogo">myWeather</h1>
+                <h1 class="myLogo">myWeather</h1>                
                 <img class="imgSun" src="Sun-6.jpg"/>
-                <p class="mySubLogo">Weather Page</p>
+                <%-- <p class="mySubLogo">Weather Page</p> --%>
+                <img class="imgWunderground" src="wundergroundLogo.jpg"/>
             </div>
             <%
                 MyWeatherData WeatherData = new MyWeatherData();
